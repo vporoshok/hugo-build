@@ -1,0 +1,8 @@
+docker:
+  image: docker:stable
+  services:
+    - docker:stable-dind
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_BUILD_REF_SLUG .
+    - docker push $CI_REGISTRY_IMAGE:$CI_BUILD_REF_SLUG
